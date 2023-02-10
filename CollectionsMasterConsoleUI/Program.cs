@@ -16,7 +16,6 @@ namespace CollectionsMasterConsoleUI
             int[] fiftyIntArray = new int[50];
 
             //TODO: Create a method to populate the number array with 50 random numbers that are between 0 and 50
-            //SEE LINE  (Populator)
             Populater(fiftyIntArray);
 
             //TODO: Print the first number of the array
@@ -35,7 +34,6 @@ namespace CollectionsMasterConsoleUI
             /*  1) First way, using a custom method => Hint: Array._____(); 
                 2) Second way, Create a custom method (scroll to bottom of page to find ⬇⬇⬇)
             */
-            //SEE LINE  (ReverseArray)
             Array.Reverse(fiftyIntArray);
 
             Console.WriteLine("All Numbers Reversed:");
@@ -46,7 +44,6 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("-------------------");
 
             //TODO: Create a method that will set numbers that are a multiple of 3 to zero then print to the console all numbers
-            //SEE LINE  (ThreeKiller)
             Console.WriteLine("Multiple of three = 0: ");
             ThreeKiller(fiftyIntArray);
 
@@ -84,10 +81,11 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("What number will you search for in the number list?");
 
             bool canParse = false;
+            int userNumber = -1;
             do
             {
-                canParse = int.TryParse(Console.ReadLine(), out int userNumber);
-                if (canParse == true)
+                canParse = int.TryParse(Console.ReadLine(), out userNumber);
+                if (canParse == true && userNumber >=0 && userNumber <51)
                 {
                     NumberChecker(listOfInts, userNumber);
                 }
@@ -95,7 +93,7 @@ namespace CollectionsMasterConsoleUI
                 {
                     Console.WriteLine("This is not a valid number. Try again");
                 }
-            } while (canParse == false);
+            } while (canParse == false || userNumber < 0 || userNumber > 50);
             
 
             Console.WriteLine("-------------------");
@@ -197,28 +195,20 @@ namespace CollectionsMasterConsoleUI
         {
             int timesInList = 0;
 
-            
-                if (searchNumber >= 0 && searchNumber < 51)
+            foreach (int num in numberList)
+            {
+                if (searchNumber == num)
                 {
-                    foreach (int num in numberList)
-                    {
-                        if (searchNumber == num)
-                        {
-                            timesInList++;
-                        }
-                    }
-                    if (timesInList == 1)
-                    {
-                        Console.WriteLine($"Your number was in the list {timesInList} time");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Your number was in the list {timesInList} times");
-                    }
+                    timesInList++;
                 }
+            }
+            if (timesInList == 1)
+            {
+                Console.WriteLine($"Your number was in the list {timesInList} time");
+            }
             else
             {
-                Console.WriteLine("This is not a valid number");
+                Console.WriteLine($"Your number was in the list {timesInList} times");
             }
         }
 
